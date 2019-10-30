@@ -41,8 +41,7 @@ Running with port exposed.
 docker run -p 9004:9004 --mount type=bind,source=./pazpar2-conf,target=/etc/pazpar2 pazpar2:latest
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Make sure the directory `./pazpar2-conf` exists.
-
+Make sure the directory `./pazpar2-conf` exists. You neet to set `CONF_FILE` to load a configuration from there.
 
 # Extending the base image
 
@@ -83,6 +82,18 @@ by `make install`.
 
 # Using the pre build image from the GitLab registry
 
+The base image is build by the GitLab CI, you can get a list of existing images [there](https://gitlab.gwdg.de/subugoe/pazpar2/pazpar2-docker-base/container_registry).
+
+# Variables
+
+| Variable Name          | Default value                                             | Description                                                                                                 | 
+|------------------------|-----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| `YAZ_DOWNLOAD_URL`     | http://ftp.indexdata.dk/pub/yaz/yaz-5.27.2.tar.gz         | The URL of the YAZ sources                                                                                  |
+| `PAZPAR2_DOWNLOAD_URL` | http://ftp.indexdata.dk/pub/pazpar2/pazpar2-1.14.0.tar.gz | The URL of the Pazpar2 sources                                                                              |
+| `CONF_DIR`             | /etc/pazpar2                                              | The directory to copy the sample configuration to                                                           |
+| `CONF_FILE`            | /etc/pazpar2/pazpar2.cfg                                  | The path to the configuration file, use this if you want to read a configuration file from a mounted volume |
+
+**Note:** This list isn't complete internal variables aren't shown here.
 
 # Updating the base image
 
@@ -93,3 +104,5 @@ To update the different used software versions you just need to change `Dockerfi
 | Pazpar2  | 1.14.0          | `PAZPAR2_DOWNLOAD_URL` variable |
 | YAZ      | 5.27.2          | `YAZ_DOWNLOAD_URL` variable     |
 | Alpine   | 3.10.3          | `FROM:` line                    |
+
+Make also sure to update this [README](./README.md)!

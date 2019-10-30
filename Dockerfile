@@ -10,7 +10,8 @@ ENV BUILD_DIR=/tmp/build \
     USER=pazpar2 \
     YAZ_DOWNLOAD_URL=http://ftp.indexdata.dk/pub/yaz/yaz-5.27.2.tar.gz \
     PAZPAR2_DOWNLOAD_URL=http://ftp.indexdata.dk/pub/pazpar2/pazpar2-1.14.0.tar.gz \
-    CONF_DIR=/etc/pazpar2
+    CONF_DIR=/etc/pazpar2 \
+    CONF_FILE=/etc/pazpar2/pazpar2.cfg
  
 # Update and install dependencies    
 RUN apk --update upgrade && \
@@ -47,4 +48,4 @@ USER $USER
 
 EXPOSE 9004
 
-ENTRYPOINT /usr/local/sbin/pazpar2 -f /etc/pazpar2/pazpar2.cfg
+ENTRYPOINT /usr/local/sbin/pazpar2 -f $CONF_FILE
