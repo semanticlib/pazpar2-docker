@@ -2,6 +2,8 @@ image: docker:latest
 
 variables:
   DOCKER_DRIVER: overlay2
+  YAZ_VERSION: 5.27.2
+  PAZPAR2_VERSION: 1.14.0
   
 services:
   - docker:dind
@@ -13,7 +15,7 @@ build-master:
   only:
     - master
   script:
-    - docker build -f Dockerfile -t ${CI_REGISTRY_IMAGE}:$CI_COMMIT_REF_NAME .
-    - docker push ${CI_REGISTRY_IMAGE}:$CI_COMMIT_REF_NAME
+    - docker build --build-arg YAZ_VERSION=${YAZ_VERSION} --build-arg PAZPAR2_VERSION=${PAZPAR2_VERSION} -f Dockerfile -t ${CI_REGISTRY_IMAGE}/pazpar2-alpine:${PAZPAR2_VERSION} .
+    - docker push ${CI_REGISTRY_IMAGE}/pazpar2-alpine:${PAZPAR2_VERSION}
   except:
     - tags

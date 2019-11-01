@@ -37,6 +37,7 @@ docker run -p 9004:9004 pazpar2:latest
 Running with port exposed.
 
 ### Running with a mounted configuration directory
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 docker run -p 9004:9004 --mount type=bind,source=./pazpar2-conf,target=/etc/pazpar2 pazpar2:latest
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,6 +85,15 @@ by `make install`.
 
 The base image is build by the GitLab CI, you can get a list of existing images [there](https://gitlab.gwdg.de/subugoe/pazpar2/pazpar2-docker-base/container_registry).
 
+# Arguments
+
+| Argument Name     | Default value | Description                                                        |
+|-------------------|---------------|--------------------------------------------------------------------|
+| `YAZ_VERSION`     | 5.27.2        | Version of YAZ to use, changes value of `YAZ_DOWNLOAD_URL`         |
+| `PAZPAR2_VERSION` | 1.14.0        | Version of Pazpar2 to use, changes value of `PAZPAR2_DOWNLOAD_URL` |
+
+**Note:** That you can use tihs arguments to change the version to be bundled in the base image created by the GitLab CI.
+
 # Variables
 
 | Variable Name          | Default value                                             | Description                                                                                                 | 
@@ -97,12 +107,13 @@ The base image is build by the GitLab CI, you can get a list of existing images 
 
 # Updating the base image
 
-To update the different used software versions you just need to change `Dockerfile`:
+To update the different used software versions you just need to change `Dockerfile`, if you build the image using the GitLab CI 
+also make sure to change the settings in `.gitlab-ci.yml` and other variables set there.
 
-| Software | Current version | Line to change                  |
-|----------|-----------------|---------------------------------|
-| Pazpar2  | 1.14.0          | `PAZPAR2_DOWNLOAD_URL` variable |
-| YAZ      | 5.27.2          | `YAZ_DOWNLOAD_URL` variable     |
-| Alpine   | 3.10.3          | `FROM:` line                    |
+| Software | Current version | Line to change                                        |
+|----------|-----------------|-------------------------------------------------------|
+| Pazpar2  | 1.14.0          | `PAZPAR2_DOWNLOAD_URL` and `PAZPAR2_VERSION` variable |
+| YAZ      | 5.27.2          | `YAZ_DOWNLOAD_URL` and `YAZ_VERSION` variable         |
+| Alpine   | 3.10.3          | `FROM:` line                                          |
 
 Make also sure to update this [README](./README.md)!
