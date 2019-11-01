@@ -49,7 +49,7 @@ Make sure the directory `./pazpar2-conf` exists. You neet to set `CONF_FILE` to 
 Example
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-FROM pazpar2-base:latest
+FROM docker.gitlab.gwdg.de/subugoe/pazpar2/pazpar2-docker-base/pazpar2:1.14.0-alpine
 
 ENV CONFIG_FILE=/etc/pazpar2/SUB.xml \
     PAZPAR2_DIR=/opt/pazpar2
@@ -84,6 +84,9 @@ by `make install`.
 # Using the pre build image from the GitLab registry
 
 The base image is build by the GitLab CI, you can get a list of existing images [there](https://gitlab.gwdg.de/subugoe/pazpar2/pazpar2-docker-base/container_registry).
+
+The name of the images is similar to this: `docker.gitlab.gwdg.de/subugoe/pazpar2/pazpar2-docker-base/pazpar2:1.14.0-alpine`
+Only the version tag should change.
 
 # Arguments
 

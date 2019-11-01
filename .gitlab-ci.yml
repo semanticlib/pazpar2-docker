@@ -15,7 +15,7 @@ build-master:
   only:
     - master
   script:
-    - docker build --build-arg YAZ_VERSION=${YAZ_VERSION} --build-arg PAZPAR2_VERSION=${PAZPAR2_VERSION} -f Dockerfile -t ${CI_REGISTRY_IMAGE}/pazpar2-alpine:${PAZPAR2_VERSION} .
-    - docker push ${CI_REGISTRY_IMAGE}/pazpar2-alpine:${PAZPAR2_VERSION}
+    - docker build --build-arg YAZ_VERSION=${YAZ_VERSION} --build-arg PAZPAR2_VERSION=${PAZPAR2_VERSION} -f Dockerfile -t ${CI_REGISTRY_IMAGE}/pazpar2:${PAZPAR2_VERSION}-alpine .
+    - docker push ${CI_REGISTRY_IMAGE}/pazpar2:${PAZPAR2_VERSION}-alpine
   except:
     - tags
