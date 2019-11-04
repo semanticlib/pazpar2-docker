@@ -10,6 +10,10 @@ You can easily provide your own configuration either via bind mount or by extend
 For more complex configurations like changed port settings it's strongly suggested to extend 
 the base image.
 
+## TODO
+
+-  Enable the testing stuff as described in section 2.3 of the [official documentation](https://software.indexdata.com/pazpar2/doc/pazpar2.pdf).
+
 # Quickstart
 
 ## Checkout the repository
@@ -94,6 +98,23 @@ The base image is build by the GitLab CI, you can get a list of existing images 
 
 The name of the images is similar to this: `docker.gitlab.gwdg.de/subugoe/pazpar2/pazpar2-docker-base/pazpar2:1.14.0-alpine`
 Only the version tag should change.
+
+Currently this repository is configured to trigger a build of [`pazpar2-docker`](https://gitlab.gwdg.de/subugoe/pazpar2/pazpar2-docker) if a new version of this base image 
+has been build, the following section of `.gitlab-ci.yml` is responsible:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+trigger_build:
+  stage: deploy
+  script:
+    - "apk add --no-cache curl"
+    - "curl -X POST -F token=[Some Token] -F ref=master https://gitlab.gwdg.de/api/v4/projects/8486/trigger/pipeline"
+  only:
+    - master
+  except:
+    - tags
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to want to trigger your own build from here, create a pull request for `.gitlab-ci.yml` with the additions for your project.
 
 # Arguments
 
