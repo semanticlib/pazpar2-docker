@@ -24,30 +24,20 @@ RUN apk --update upgrade && \
     mkdir -p $BUILD_DIR $CONF_DIR && \
 # Get and extract YAZ
     cd $BUILD_DIR && \
-    if test -n "$YAZ_VERSION" ; then \
-    	YAZ_DL=$(echo $YAZ_DOWNLOAD_URL |sed "s/\(.*\)-\(.*\).tar.gz/\1-$YAZ_VERSION.tar.gz/g");  \
-    else \
-    	YAZ_DL="$YAZ_DOWNLOAD_URL"; \
-    fi && \
-    echo "Downloading '$YAZ_DL'" && \
-    wget $YAZ_DL && \
-    tar xzf $(basename $YAZ_DL) && \
+    echo "Downloading '$YAZ_DOWNLOAD_URL'" && \
+    wget $YAZ_DOWNLOAD_URL && \
+    tar xzf $(basename $YAZ_DOWNLOAD_URL) && \
 # Get and extract Pazpar2
     cd $BUILD_DIR && \
-    if test -n "$PAZPAR2_VERSION" ; then \
-    	PAZPAR2_DL=$(echo $PAZPAR2_DOWNLOAD_URL |sed "s/\(.*\)-\(.*\).tar.gz/\1-$PAZPAR2_VERSION.tar.gz/g"); \
-    else \
-    	PAZPAR2_DL="$PAZPAR2_DOWNLOAD_URL"; \
-    fi && \
-    echo "Downloading '$PAZPAR2_DL'" && \
-    wget $PAZPAR2_DL && \
-    tar xzf $(basename $PAZPAR2_DL) && \
+    echo "Downloading '$PAZPAR2_DOWNLOAD_URL'" && \
+    wget $PAZPAR2_DOWNLOAD_URL && \
+    tar xzf $(basename $PAZPAR2_DOWNLOAD_URL) && \
 # Configure and build YAZ
-    cd /tmp/build/$(basename $YAZ_DL .tar.gz) && \
+    cd /tmp/build/$(basename $YAZ_DOWNLOAD_URL .tar.gz) && \
     ./configure --with-iconv --with-xslt --with-xml2 --with-icu --with-gnutls --prefix=/usr/local && \
     make install && \
 # Configure and build Pazpar2
-    cd /tmp/build/$(basename $PAZPAR2_DL .tar.gz) && \
+    cd /tmp/build/$(basename $PAZPAR2_DOWNLOAD_URL .tar.gz) && \
     ./configure && \
     make install && \
 # Copy default config
