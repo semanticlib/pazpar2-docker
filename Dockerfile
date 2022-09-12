@@ -1,18 +1,16 @@
 # syntax=docker/dockerfile:experimental
 
-FROM alpine:3.10.3
+FROM alpine:latest
 
-LABEL maintainer="mahnke@sub.uni-goettingen.de"
-
-ARG YAZ_VERSION=5.27.2
-ARG PAZPAR2_VERSION=1.14.0
+ARG YAZ_VERSION=5.32.0
+ARG PAZPAR2_VERSION=1.14.1
 
 ENV BUILD_DIR=/tmp/build \
     REQ_BUILD="wget alpine-sdk bison libxslt-dev gnutls-dev icu-dev libgcrypt-dev libgpg-error-dev" \
     REQ_RUN="busybox libxslt gnutls icu libgcrypt libgpg-error" \
     USER=pazpar2 \
-    YAZ_DOWNLOAD_URL=http://ftp.indexdata.dk/pub/yaz/yaz-5.27.2.tar.gz \
-    PAZPAR2_DOWNLOAD_URL=http://ftp.indexdata.dk/pub/pazpar2/pazpar2-1.14.0.tar.gz \
+    YAZ_DOWNLOAD_URL=http://ftp.indexdata.dk/pub/yaz/yaz-$YAZ_VERSION.tar.gz \
+    PAZPAR2_DOWNLOAD_URL=http://ftp.indexdata.dk/pub/pazpar2/pazpar2-$PAZPAR2_VERSION.tar.gz \
     CONF_DIR=/etc/pazpar2 \
     CONF_FILE=/etc/pazpar2/pazpar2.cfg
  
